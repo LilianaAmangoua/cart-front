@@ -14,6 +14,7 @@ import LayoutWithoutBar from "./Layout/LayoutWithoutBar";
 import {HelmetProvider} from "react-helmet-async";
 import {AuthProvider, useAuth} from "./context/AuthContext";
 import HomePage from "./pages/Body/Home";
+import {CartProvider} from "./context/CartContext";
 
 
 function App() {
@@ -30,26 +31,27 @@ function MainApp() {
       <>
           <HelmetProvider>
               <AuthProvider>
-                  <Routes>
+                  <CartProvider>
+                      <Routes>
 
-                              <Route path={"/"} element={<LayoutWithBar/>}>
-                                  <Route index element={<Navigate to="/home" replace/>}/>
-                                  <Route path={"/home"} element={<HomePage/>}></Route>
-                                  <Route path={"/allproducts"} element={<AllProducts/>}></Route>
-                                  <Route path={"/productsdetails/:productId"} element={<ProductDetails/>}></Route>
-                                  <Route path={"/orders"} element={<Orders/>}></Route>
-                                  <Route path={"/research"} element={<Research/>}></Route>
-                                  <Route path={"/orderdetails/:orderId"} element={<OrderDetails/>}></Route>
-                                  <Route path={"/cart"} element={<Cart/>}></Route>
-                              </Route>
+                          <Route path={"/"} element={<LayoutWithBar/>}>
+                              <Route index element={<Navigate to="/home" replace/>}/>
+                              <Route path={"/home"} element={<HomePage/>}></Route>
+                              <Route path={"/allproducts"} element={<AllProducts/>}></Route>
+                              <Route path={"/productsdetails/:productId"} element={<ProductDetails/>}></Route>
+                              <Route path={"/orders"} element={<Orders/>}></Route>
+                              <Route path={"/research"} element={<Research/>}></Route>
+                              <Route path={"/orderdetails/:orderId"} element={<OrderDetails/>}></Route>
+                              <Route path={"/cart"} element={<Cart/>}></Route>
+                          </Route>
 
-                              <Route path={"/"} element={<LayoutWithoutBar/>}>
-                                  <Route path={"/login"} element={<Login/>}></Route>
-                                  <Route path={"/error"} element={<Error/>}></Route>
-                                  <Route path={"*"} element={<Navigate to={"/error"}/>}></Route>
-                              </Route>
-
-                  </Routes>
+                          <Route path={"/"} element={<LayoutWithoutBar/>}>
+                              <Route path={"/login"} element={<Login/>}></Route>
+                              <Route path={"/error"} element={<Error/>}></Route>
+                              <Route path={"*"} element={<Navigate to={"/error"}/>}></Route>
+                          </Route>
+                      </Routes>
+                  </CartProvider>
               </AuthProvider>
           </HelmetProvider>
 

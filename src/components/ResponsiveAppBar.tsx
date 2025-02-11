@@ -12,6 +12,9 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import {useNavigate} from "react-router-dom";
 import SearchBarComponent from "./SearchBar";
+import {Avatar, Tooltip} from "@mui/material";
+import {useAuth} from "../context/AuthContext";
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
 const pages = [
     {
@@ -33,12 +36,23 @@ const pages = [
 
 
 ];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = [
+    {
+        name: "Gérer",
+        navigation: "/"
+    },
+    {
+        name: "Se déconnecter",
+        navigation: "/login"
+    }
+
+];
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const navigate = useNavigate();
+    const {logout} = useAuth();
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -54,6 +68,12 @@ function ResponsiveAppBar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const handleLogout = () => {
+        logout();
+        navigate("/login");
+        handleCloseUserMenu();
+    }
 
 
 
@@ -107,7 +127,15 @@ function ResponsiveAppBar() {
                             </Button>
                         ))}
                     </Box>
+
+                    <ShoppingCartOutlinedIcon onClick={() => navigate("/cart")}/>
+
                     <Box sx={{flexGrow: 0}}>
+                        <Tooltip title="Open settings">
+                            <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
+                            </IconButton>
+                        </Tooltip>
                         <Menu
                             sx={{mt: '45px'}}
                             id="menu-appbar"
@@ -125,13 +153,19 @@ function ResponsiveAppBar() {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography sx={{textAlign: 'center'}}>{setting}</Typography>
-                                </MenuItem>
+                                setting.name === "Se déconnecter" ? (
+                                    <MenuItem key={setting.name} onClick={handleLogout}>
+                                        <Typography sx={{textAlign: 'center'}}>{setting.name}</Typography>
+                                    </MenuItem>
+                                ) : (
+                                    <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+                                        <Typography sx={{textAlign: 'center'}}>{setting.name}</Typography>
+                                    </MenuItem>
+                                )
+
                             ))}
                         </Menu>
                     </Box>
-                    <SearchBarComponent/>
                 </Toolbar>
             </Container>
 

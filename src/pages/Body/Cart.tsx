@@ -1,10 +1,32 @@
 import {FC} from 'react';
+import {useCart} from "../../context/CartContext";
+import Grid from "@mui/material/Grid2";
+import ProductCard from "../../components/ProductCard";
+import {Product} from "../../types/Product";
+import Pages from "../../Layout/Page";
+import Button from "@mui/material/Button";
 
 const Cart: FC<{}> = ({}) => {
+    const {totalProducts} = useCart();
+
     return (
-        <div>
-            <h1>Cart</h1>
-        </div>
+        <Pages title={"Panier"}>
+            <div>
+                <h2>Mon Panier</h2>
+                <Grid container spacing={2} sx={{mb: 2, mr: 2}}>
+                    {
+                        totalProducts.map((product: Product) => (
+                            <Grid size={{xs: 12, md: 3}} key={product.productId}>
+                                <ProductCard product={product}/>
+                            </Grid>
+                        ))
+                    }
+                </Grid>
+            </div>
+
+            <Button variant="contained" sx={{mb: 5}}>Acheter</Button>
+        </Pages>
+
     );
 };
 
