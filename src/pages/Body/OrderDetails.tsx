@@ -1,6 +1,6 @@
 import {FC} from 'react';
 
-const CartProvider: FC<{}> = ({}) => {
+const OrderDetails: FC<{}> = ({}) => {
     return (
         <div>
 
@@ -8,4 +8,4 @@ const CartProvider: FC<{}> = ({}) => {
     );
 };
 
-export default CartProvider;
+export default OrderDetails;

@@ -1,12 +1,15 @@
 import {FC} from 'react';
+import {Link} from "react-router-dom";
+import "./Footer.css"
 
 const Footer: FC<{}> = ({}) => {
     return (
-        <div>
-            <ul>
-                <li>CGU</li>
-            </ul>
-        </div>
+        <footer className="footer">
+           <Link to={"/home"}>Accueil</Link>
+            <Link to={"/allproducts"}>Tous les produits</Link>
+            <Link to={"/research"}>Chercher un produit</Link>
+            <Link to={"/orders"}>Mes commandes</Link>
+        </footer>
     );
 };
 

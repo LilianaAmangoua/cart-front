@@ -1,0 +1,21 @@
+.footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #1b61d4 !important;
+    height: 4.5rem;
+}
+
+.footer a {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+}
+
+@media screen and (max-width: 800px) {
+    .footer {
+        flex-direction: column;
+        align-items: center;
+        height: 25vh;
+    }
+}
