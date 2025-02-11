@@ -5,8 +5,6 @@ const Footer: FC<{}> = ({}) => {
         <div>
             <ul>
                 <li>CGU</li>
-                <li>CGV</li>
-                <li>Contact</li>
             </ul>
         </div>
     );
