@@ -11,8 +11,9 @@ const Error: FC<{}> = ({}) => {
         <Pages title="Erreur 404">
             <div>
                 <h1>404</h1>
-                <p>La page que vous recherchez n'existe pas</p>
-                <Button variant="outlined" onClick={() => navigate("/home")}>Accueil</Button>
+                <p>La page que vous recherchez n'existe pas ou vous vous êtes connecté avec les mauvaises informations
+                    d'identification</p>
+                <Button variant="outlined" onClick={() => navigate("/login")}>Se connecter ou s'inscrire</Button>
             </div>
         </Pages>
 

@@ -1,25 +1,22 @@
-import {FC, useState} from 'react';
-import {Checkbox, FormControlLabel, TextField} from "@mui/material";
-import Button from "@mui/material/Button";
-import "../pages/Body/styles/Login.css"
+import {FC, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import Pages from "../Layout/Page";
 import {useAuth} from "../context/AuthContext";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {post} from "../api/api";
+import Pages from "../Layout/Page";
 import Box from "@mui/material/Box";
+import {Checkbox, FormControlLabel, TextField} from "@mui/material";
+import Button from "@mui/material/Button";
 
-interface LoginFormInput {
+interface SubscribeFormInput {
     email: string
     password: string
     role: string
 }
 
-const LoginForm: FC<{}> = ({}) => {
+const SubscribeForm: FC<{}> = ({}) => {
     const navigate = useNavigate();
     const {login} = useAuth();
-    const [selectedRole, setSelectedRole] = useState("");
-    const [error, setError] = useState("");
 
     const {register, handleSubmit, setValue, formState: {errors}} = useForm({
         defaultValues: {
@@ -29,37 +26,7 @@ const LoginForm: FC<{}> = ({}) => {
         },
     })
 
-    const postUser = async (data: LoginFormInput) => {
-        try {
-            const user = await post("/auth/login", {
-                email: data.email,
-                password: data.password,
-                role: data.role
-            })
-
-            if (user) {
-                login(user, data.role);
-                data.role === "ADMIN" ? navigate("/allorders") : navigate("/home")
-                console.log("User : " + user)
-            } else {
-                setError(user)
-            }
-
-        } catch (e : any) {
-            console.warn("Error logging in : ", e);
-
-        }
-
-    }
-
-    const onSubmit: SubmitHandler<LoginFormInput> = async (data: LoginFormInput) => {
-
-        if (errors) {
-            console.log("Errors while submitting : ", errors);
-        }
-        // console.log("Data to submit : ", data);
-        await postUser(data);
-    }
+    const [selectedRole, setSelectedRole] = useState("");
 
     const handleRole = (role: string) => {
         setSelectedRole(role);
@@ -67,11 +34,45 @@ const LoginForm: FC<{}> = ({}) => {
     };
 
 
+    const postUser = async (data: SubscribeFormInput) => {
+        try {
+            const user = await post("/auth/register", {
+                email: data.email,
+                password: data.password,
+                role: data.role
+            })
+
+            console.log("Token received : ", user);
+            console.log("User : " + user)
+
+            if (user) {
+                login(user, data.role);
+                navigate("/login")
+            } else {
+                console.warn("Aucun token reçu");
+            }
+
+        } catch (e) {
+            console.warn("Error logging in : ", e);
+        }
+
+    }
+
+    const onSubmit: SubmitHandler<SubscribeFormInput> = async (data: SubscribeFormInput) => {
+
+        if (errors) {
+            console.log("Errors while submitting : ", errors);
+        }
+        console.log("Data to submit : ", data);
+        await postUser(data);
+    }
+
+
+
     return (
         <Pages title={"Se connecter"}>
-
             <form className="loginContainer" onSubmit={handleSubmit(onSubmit)}>
-                <h2 style={{color: "#274c77"}}>Se connecter</h2>
+                <h2 style={{color: "#274c77"}}>S'inscrire</h2>
 
                 <TextField id="outlined-basic" label="Email" variant="outlined" {...register("email")}/>
                 <TextField id="outlined-basic" label="Mot de passe" variant="outlined"
@@ -92,17 +93,11 @@ const LoginForm: FC<{}> = ({}) => {
                     }
                     label="Admin"
                 />
-                {error && (<p style={{color: "red"}}>{error}</p>)}
-                <Button type="submit" variant="contained">Se connecter</Button>
-                <p>Pas encore inscrit ? <span onClick={() => navigate("/subscribe")} style={{
-                    cursor: "pointer",
-                    textDecoration: "underline"
-                }}>S'inscrire</span></p>
+
+                <Button type="submit" variant="contained">S'inscrire</Button>
             </form>
-
-
         </Pages>
     );
 };
 
-export default LoginForm;
+export default SubscribeForm;

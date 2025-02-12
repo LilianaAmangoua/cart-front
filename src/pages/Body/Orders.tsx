@@ -28,6 +28,7 @@ const Orders: FC<{}> = ({}) => {
            <h2>Mes commandes</h2>
             <Grid container spacing={2} sx={{mb: 2, mr: 2}}>
                 {
+                    ordersToDisplay &&
                     ordersToDisplay && ordersToDisplay.map((order: OrderType) => (
                         <Grid size={{xs: 12, md: 3}} key={order.orderId}>
                             <OrderCard order={order}/>

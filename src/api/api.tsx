@@ -4,6 +4,19 @@ const myDB = axios.create({
     baseURL: "http://localhost:8080",
 });
 
+myDB.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            config.headers["Authorization"] = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
 
 const responseInterceptor = (error: any) => {
     const status = error.response?.status;
@@ -39,9 +52,9 @@ export const get = async <T = any>(url: string, config?: {}): Promise<T | null> 
     try {
         const response = await myDB.get(url, config);
         return response.data;
-    } catch (error) {
+    } catch (error: any) {
         console.error("Cannot get from database: ", error);
-        return null;
+        return error.response.data;
     }
 };
 
@@ -49,9 +62,9 @@ export const post = async <T = any>(url: string, data: object, config?: {}): Pro
     try {
         const response = await myDB.post(url, data, config);
         return response.data;
-    } catch (error) {
+    } catch (error : any) {
         console.error("Cannot post to database : ", error);
-        return null;
+        return error.response.data;
     }
 };
 
@@ -59,9 +72,9 @@ export const put = async <T = any>(url: string, data: object, config?: {}): Prom
     try {
         const response = await myDB.put(url, data, config);
         return response.data;
-    } catch (error) {
+    } catch (error : any) {
         console.error("Cannot update to database : ", error);
-        return null;
+        return error.response.data;
     }
 }
 
@@ -70,7 +83,7 @@ export const deleteFromDB = async <T = any>(url: string, config?: {}): Promise<v
         const response = await myDB.delete(url, config);
         return response.data;
     } catch (error) {
-        console.error("Cannot delete this movie from favorites : ", error);
+        console.error("Cannot delete : ", error);
     }
 }
 

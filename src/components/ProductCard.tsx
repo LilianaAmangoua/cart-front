@@ -10,9 +10,11 @@ import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import * as React from "react";
+import {useNavigate} from "react-router-dom";
 
 const ProductCard: FC<{product: Product}> = ({product}) => {
      const {addToCart} = useCart();
+     const navigate = useNavigate();
 
     return (
         <Card sx={{maxWidth: 345}}>
@@ -30,8 +32,8 @@ const ProductCard: FC<{product: Product}> = ({product}) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Détails</Button>
-                <ControlPointRoundedIcon onClick={() => addToCart(product)}/>
+                <Button size="small" onClick={() => navigate(`/productsdetails/${product.productId}`)}>Détails</Button>
+                <ControlPointRoundedIcon onClick={() => addToCart(product, product.stock)}/>
             </CardActions>
 
 

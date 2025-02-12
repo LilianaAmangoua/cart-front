@@ -5,7 +5,7 @@ import {FC} from 'react';
 const Pages: FC<{ children: any, title: string }> = ({children, title}) => {
     return (
         <>
-            <Box>
+            <Box sx={{ml: 2}}>
                 <Helmet>
                     <title>{title}</title>
                 </Helmet>

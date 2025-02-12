@@ -127,45 +127,47 @@ function ResponsiveAppBar() {
                             </Button>
                         ))}
                     </Box>
+                    <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center", width: 100}}>
+                        <ShoppingCartOutlinedIcon onClick={() => navigate("/cart")}/>
 
-                    <ShoppingCartOutlinedIcon onClick={() => navigate("/cart")}/>
+                        <Box sx={{flexGrow: 0}}>
+                            <Tooltip title="Open settings">
+                                <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
+                                </IconButton>
+                            </Tooltip>
+                            <Menu
+                                sx={{mt: '45px'}}
+                                id="menu-appbar"
+                                anchorEl={anchorElUser}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorElUser)}
+                                onClose={handleCloseUserMenu}
+                            >
+                                {settings.map((setting) => (
+                                    setting.name === "Se déconnecter" ? (
+                                        <MenuItem key={setting.name} onClick={handleLogout}>
+                                            <Typography sx={{textAlign: 'center'}}>{setting.name}</Typography>
+                                        </MenuItem>
+                                    ) : (
+                                        <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+                                            <Typography sx={{textAlign: 'center'}}>{setting.name}</Typography>
+                                        </MenuItem>
+                                    )
 
-                    <Box sx={{flexGrow: 0}}>
-                        <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{mt: '45px'}}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {settings.map((setting) => (
-                                setting.name === "Se déconnecter" ? (
-                                    <MenuItem key={setting.name} onClick={handleLogout}>
-                                        <Typography sx={{textAlign: 'center'}}>{setting.name}</Typography>
-                                    </MenuItem>
-                                ) : (
-                                    <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                                        <Typography sx={{textAlign: 'center'}}>{setting.name}</Typography>
-                                    </MenuItem>
-                                )
-
-                            ))}
-                        </Menu>
+                                ))}
+                            </Menu>
+                        </Box>
                     </Box>
+
                 </Toolbar>
             </Container>
 
