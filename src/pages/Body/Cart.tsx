@@ -6,6 +6,10 @@ import {Product} from "../../types/Product";
 import Pages from "../../Layout/Page";
 import Button from "@mui/material/Button";
 
+interface CartItem extends Product {
+    quantity: number;
+}
+
 const Cart: FC<{}> = ({}) => {
     const {totalProducts} = useCart();
 
@@ -15,9 +19,9 @@ const Cart: FC<{}> = ({}) => {
                 <h2>Mon Panier</h2>
                 <Grid container spacing={2} sx={{mb: 2, mr: 2}}>
                     {
-                        totalProducts.map((product: Product) => (
+                        totalProducts.map((product: CartItem) => (
                             <Grid size={{xs: 12, md: 3}} key={product.productId}>
-                                <ProductCard product={product}/>
+                                <ProductCard product={product} quantity={product.quantity}/>
                             </Grid>
                         ))
                     }

@@ -4,12 +4,15 @@ import Pages from "../../Layout/Page";
 import {get} from "../../api/api";
 import {Product} from "../../types/Product";
 import Button from "@mui/material/Button";
-import "./styles/ProductDetails.css"
+import styles from "./styles/ProductDetails.module.css"
+import {useCart} from "../../context/CartContext";
 
 const ProductDetails: FC<{}> = ({}) => {
 
     const {productId} = useParams();
     const [productToDisplay, setProductToDisplay] = useState<Product>();
+    const {addToCart, sufficientStock} = useCart();
+    const [quantity, setQuantity] = useState<number>(1);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -25,18 +28,31 @@ const ProductDetails: FC<{}> = ({}) => {
 
     return (
         <Pages title="Détails">
-            <div className={"container"}>
-                <img/>
+            <div className={styles.container}>
+                <div className={styles.image} style={{backgroundImage: `url(${productToDisplay?.image})`}}>
 
-                <div className="container__text">
+                </div>
+
+                <div className={styles.container__text}>
                     <h1>{productToDisplay?.name}</h1>
                     <p>{productToDisplay?.description}</p>
 
-                    <p>{productToDisplay?.price}</p>
+                    <p>{productToDisplay?.price} €</p>
                     <label htmlFor="quantity">Quantité</label>
-                    <input id="quantity" type="number"/>
+                    <input id="quantity" type="number" min="1" value={quantity}
+                           onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}/>
 
-                    <Button variant="contained">Ajouter au panier</Button>
+                    {
+                        !sufficientStock && (
+                            <p style={{color: "red"}}>Le stock n'est pas suffisant</p>
+                        )
+                    }
+
+                    <Button variant="contained" onClick={() => {
+                        if (productToDisplay) {
+                            addToCart(productToDisplay, productToDisplay.stock, quantity);
+                        }
+                    }}>Ajouter au panier</Button>
                 </div>
 
             </div>

@@ -1,0 +1,33 @@
+.title {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    text-align: center;
+    font-size: 3rem;
+}
+
+.aboutUs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 3rem 3rem;
+}
+
+.aboutUs__image {
+    width: 40%;
+}
+
+.aboutUs__Text {
+    font-size: 1.5rem;
+    width: 50%;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+}
+
+.ctaButton {
+    display: flex;
+    justify-content: center;
+    margin: 4rem auto;
+}

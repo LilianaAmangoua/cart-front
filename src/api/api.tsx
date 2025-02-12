@@ -78,6 +78,16 @@ export const put = async <T = any>(url: string, data: object, config?: {}): Prom
     }
 }
 
+export const update = async <T = any>(url: string, data: object, config?: {}): Promise<T | null> => {
+    try {
+        const response = await myDB.patch(url, data, config);
+        return response.data;
+    } catch (error: any) {
+        console.error("Cannot update to database : ", error);
+        return error.response.data;
+    }
+}
+
 export const deleteFromDB = async <T = any>(url: string, config?: {}): Promise<void> => {
     try {
         const response = await myDB.delete(url, config);

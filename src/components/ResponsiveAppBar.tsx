@@ -9,12 +9,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import {useNavigate} from "react-router-dom";
-import SearchBarComponent from "./SearchBar";
-import {Avatar, Tooltip} from "@mui/material";
+import {Avatar, Badge, BadgeProps, styled, Tooltip} from "@mui/material";
 import {useAuth} from "../context/AuthContext";
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import {useCart} from "../context/CartContext";
 
 const pages = [
     {
@@ -48,11 +47,22 @@ const settings = [
 
 ];
 
+const StyledBadge = styled(Badge)<BadgeProps>(({theme}) => ({
+    '& .MuiBadge-badge': {
+        right: -3,
+        top: 13,
+        border: `2px solid ${theme.palette.background.paper}`,
+        padding: '0 4px',
+    },
+}));
+
+
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const navigate = useNavigate();
     const {logout} = useAuth();
+    const {totalProducts} = useCart();
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -109,7 +119,7 @@ function ResponsiveAppBar() {
                             sx={{display: {xs: 'block', md: 'none'}}}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page.name} onClick={() => navigate(page.navigation)}>
+                                <MenuItem key={page.name} onClick={() => navigate(page.navigation)} sx={{cursor: "pointer"}}>
                                     <Typography sx={{textAlign: 'center'}}>{page.name}</Typography>
                                 </MenuItem>
                             ))}
@@ -121,17 +131,23 @@ function ResponsiveAppBar() {
                             <Button
                                 key={page.name}
                                 onClick={() => navigate(page.navigation)}
-                                sx={{my: 2, color: 'white', display: 'block'}}
+                                sx={{my: 2, color: 'white', display: 'block', cursor: "pointer"}}
                             >
                                 {page.name}
                             </Button>
                         ))}
                     </Box>
                     <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center", width: 100}}>
-                        <ShoppingCartOutlinedIcon onClick={() => navigate("/cart")}/>
+
+                        <IconButton aria-label="cart" onClick={() => navigate("/cart")}>
+                            <StyledBadge badgeContent={totalProducts.length} color="secondary">
+                                <ShoppingCartIcon  sx={{cursor: "pointer", color: "white"}}/>
+                            </StyledBadge>
+                        </IconButton>
+
 
                         <Box sx={{flexGrow: 0}}>
-                            <Tooltip title="Open settings">
+                            <Tooltip title="Paramètres">
                                 <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                                     <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
                                 </IconButton>

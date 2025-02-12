@@ -1,48 +1,57 @@
 import React, {createContext, FC, useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {jwtDecode} from "jwt-decode";
 
 interface AuthContext {
     userId: string | null;
-    isLogged: boolean,
     login: (token: string, userRole: string) => void;
     role: string | null;
     logout: () => void;
     decodeToken: () => void;
+    token: string | null;
 }
 
 export const AuthContext = createContext<AuthContext | undefined>(undefined);
 
 export const AuthProvider: FC<{ children: React.ReactNode }> = ({children}) => {
-    const [isLogged, setIsLogged] = useState<boolean>(!!localStorage.getItem("token"));
+    const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
     const [role, setRole] = useState<string | null>(localStorage.getItem("role"));
     const [userId, setUserId] = useState<string | null>(null);
 
     useEffect(() => {
-        if(isLogged){
+        if(token){
             decodeToken();
         }
-    }, [isLogged]);
+    }, [token]);
 
     const login = (token: string, userRole: string) => {
         localStorage.setItem("token", token);
         localStorage.setItem("role", userRole);
-        setIsLogged(true);
-        setRole(role);
+        setToken(token);
+        setRole(userRole);
+        decodeToken()
     }
 
     const logout = () => {
         localStorage.removeItem("token")
         localStorage.removeItem("role")
-        setIsLogged(false);
+        setToken(null);
         setRole(null);
     }
 
     const decodeToken = () => {
-        if(isLogged)
+        if(token){
+            try {
+                const decoded: any = jwtDecode(token);
+                setUserId(decoded.id);
+            } catch (error) {
+                console.error("Error decoding token:", error);
+            }
+        }
     }
 
     return (
-        <AuthContext.Provider value={{isLogged, login, logout, role}}>
+        <AuthContext.Provider value={{token, login, logout, role, userId, decodeToken}}>
             {children}
         </AuthContext.Provider>
     )
