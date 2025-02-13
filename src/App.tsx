@@ -6,7 +6,6 @@ import AllProducts from "./pages/Body/AllProducts";
 import Cart from "./pages/Body/Cart";
 import Error from "./pages/Body/Error";
 import Login from "./pages/Body/Login";
-import OrderDetails from "./pages/Body/OrderDetails";
 import Orders from "./pages/Body/Orders";
 import ProductDetails from "./pages/Body/ProductDetails";
 import LayoutWithBar from "./Layout/LayoutWithBar";
@@ -29,6 +28,9 @@ function App() {
     );
 }
 
+
+
+
 function MainApp() {
 
   return (
@@ -42,13 +44,12 @@ function MainApp() {
 
                               <Route element={<PrivateUserRoutes/>}>
                                   <Route path={"/"} element={<LayoutWithBar/>}>
-                                      <Route index element={<Navigate to="/home" replace/>}/>
+                                      <Route index element={<Navigate to="/login" replace/>}/>
                                       <Route path={"/home"} element={<HomePage/>}></Route>
                                       <Route path={"/allproducts"} element={<AllProducts/>}></Route>
                                       <Route path={"/productsdetails/:productId"} element={<ProductDetails/>}></Route>
                                       <Route path={"/orders"} element={<Orders/>}></Route>
                                       <Route path={"/research"} element={<Research/>}></Route>
-                                      <Route path={"/orderdetails/:orderId"} element={<OrderDetails/>}></Route>
                                       <Route path={"/cart"} element={<Cart/>}></Route>
                                   </Route>
                               </Route>

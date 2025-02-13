@@ -17,6 +17,7 @@ interface SubscribeFormInput {
 const SubscribeForm: FC<{}> = ({}) => {
     const navigate = useNavigate();
     const {login} = useAuth();
+    const [error, setError] = useState("");
 
     const {register, handleSubmit, setValue, formState: {errors}} = useForm({
         defaultValues: {
@@ -42,14 +43,12 @@ const SubscribeForm: FC<{}> = ({}) => {
                 role: data.role
             })
 
-            console.log("Token received : ", user);
-            console.log("User : " + user)
 
-            if (user) {
-                login(user, data.role);
+            if (user.token) {
+                login(user.token, data.role);
                 navigate("/login")
             } else {
-                console.warn("Aucun token reçu");
+                setError(user);
             }
 
         } catch (e) {
@@ -59,11 +58,6 @@ const SubscribeForm: FC<{}> = ({}) => {
     }
 
     const onSubmit: SubmitHandler<SubscribeFormInput> = async (data: SubscribeFormInput) => {
-
-        if (errors) {
-            console.log("Errors while submitting : ", errors);
-        }
-        console.log("Data to submit : ", data);
         await postUser(data);
     }
 
@@ -93,7 +87,7 @@ const SubscribeForm: FC<{}> = ({}) => {
                     }
                     label="Admin"
                 />
-
+                {error && (<p style={{color: "red"}}>{error}</p>)}
                 <Button type="submit" variant="contained">S'inscrire</Button>
             </form>
         </Pages>

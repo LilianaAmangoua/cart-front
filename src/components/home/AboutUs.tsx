@@ -4,7 +4,7 @@ import image1 from "../../assets/aurelia-dubois-6J0MUsmS4fQ-unsplash.jpg"
 import image2 from "../../assets/freestocks-DlZD4V2j9oM-unsplash.jpg"
 import image3 from "../../assets/towfiqu-barbhuiya-FcST_JEc3Dc-unsplash.jpg"
 import image4 from "../../assets/engin-akyurt-rNBSooxNze4-unsplash (1).jpg"
-import styles from "./AboutUs.module.css"
+import styles from "../styles/AboutUs.module.css"
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 

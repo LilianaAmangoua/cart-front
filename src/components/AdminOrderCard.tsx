@@ -10,8 +10,8 @@ const AdminOrderCard: FC<{order: number, email: string, total: number, date: Dat
                 <div style={{display: "flex", justifyContent: "space-evenly", alignItems: "center"}}>
                     <p>Id Commande : {order}</p>
                     <p>Mail User: {email}</p>
-                    <p>Total: {total}</p>
-                    <p>Date : {date.toLocaleDateString()}</p>
+                    <p>Prix total: {total}</p>
+                    <p>Date : {new Date(date).toLocaleDateString("fr-FR")}</p>
                 </div>
 
             </div>

@@ -3,7 +3,7 @@ import {useCart} from "../context/CartContext";
 import {Product} from "../types/Product";
 import * as React from "react";
 import {useLocation, useNavigate} from "react-router-dom";
-import styles from "./ProductCard.module.css";
+import styles from "./styles/ProductCard.module.css";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const ProductCard: FC<{product: Product, quantity?: number}> = ({product, quantity}) => {

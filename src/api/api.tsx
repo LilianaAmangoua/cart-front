@@ -58,6 +58,8 @@ export const get = async <T = any>(url: string, config?: {}): Promise<T | null> 
     }
 };
 
+
+
 export const post = async <T = any>(url: string, data: object, config?: {}): Promise<T | null> => {
     try {
         const response = await myDB.post(url, data, config);

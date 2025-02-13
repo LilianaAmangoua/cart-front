@@ -1,5 +1,5 @@
 import {FC} from 'react';
-import styles from "./HeroSection.module.css"
+import styles from "../styles/HeroSection.module.css"
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 

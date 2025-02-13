@@ -9,7 +9,7 @@ const AllProducts: FC<{}> = ({}) => {
     const [productsToDisplay, setProductsToDisplay] = useState<Product[]>([]);
 
     useEffect(() => {
-        const fetchProducts = async () => {
+        const fetchProducts = async () => {// Récupérer tous les produits
             try {
                 const products = await get("/products/all");
                 setProductsToDisplay(products);

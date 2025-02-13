@@ -12,14 +12,14 @@ interface CartProps {
     updateQuantity: (product: Product, quantity: number) => void;
     totalProducts: CartItem[];
     deleteAll: () => void;
-    sufficientStock: string;
+    sufficientStock: string | null;
 }
 
 export const CartContext = createContext<CartProps | undefined>(undefined);
 
 export const CartProvider: FC<{children: React.ReactNode}> = ({children}) => {
     const [totalProducts, setTotalProducts] = useState<CartItem[]>([]);
-    const [sufficientStock, setSufficientStock] = useState<string>("");
+    const [sufficientStock, setSufficientStock] = useState<string | null>(null);
 
     const updateQuantity = (product: Product, quantity: number) => {
         const updatedCart = totalProducts.map((item) =>
@@ -35,6 +35,7 @@ export const CartProvider: FC<{children: React.ReactNode}> = ({children}) => {
 
         if (!productInCart) { // Vérifie que le produit ne soit pas déjà dans le panier
             if (stock > 0) { // Vérifie que le stock est suffisant
+                setSufficientStock("")
                 const updateStock = async () => {
                     try{
                         const stock = await update(`/products/${product.productId}/decrease?quantity=${quantityToAdd}`, {
@@ -48,16 +49,16 @@ export const CartProvider: FC<{children: React.ReactNode}> = ({children}) => {
                 setTotalProducts([...totalProducts, {...product, quantity: quantityToAdd}]);
                 updateStock();
             } else {
-                console.log("Stock insuffisant");
-                setSufficientStock("Stock Insuffisant");
+                setSufficientStock(`Stock Insuffisant pour le ${product.name}`);
 
             }
         } else { // Si le produit est déjà present dans le panier
             if (productInCart.quantity < stock) { // Vérifie que le stock est suffisant par rapport à la quantité
                 updateQuantity(productInCart, productInCart.quantity + quantityToAdd);
+                setSufficientStock("")
             } else {
                 console.log("Stock insuffisant pour augmenter la quantité");
-                setSufficientStock("Stock Insuffisant")
+                setSufficientStock(`Stock Insuffisant pour le ${product.name}`);
             }
         }
     }

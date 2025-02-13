@@ -14,7 +14,6 @@ interface CartItem extends Product {
 const Cart: FC<{}> = ({}) => {
     const {totalProducts, deleteAll} = useCart();
 
-
     return (
         <Pages title={"Panier"}>
             <div>

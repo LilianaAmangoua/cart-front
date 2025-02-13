@@ -40,10 +40,9 @@ const LoginForm: FC<{}> = ({}) => {
                 role: data.role
             })
 
-            if (user) {
-                login(user, data.role);
+            if (user.token) {
+                login(user.token, data.role);
                 data.role === "ADMIN" ? navigate("/allorders") : navigate("/home")
-                console.log("User : " + user)
             } else {
                 setError(user)
             }
@@ -56,11 +55,6 @@ const LoginForm: FC<{}> = ({}) => {
     }
 
     const onSubmit: SubmitHandler<LoginFormInput> = async (data: LoginFormInput) => {
-
-        if (errors) {
-            console.log("Errors while submitting : ", errors);
-        }
-
         await postUser(data);
     }
 

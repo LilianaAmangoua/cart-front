@@ -62,7 +62,6 @@ const SearchBarComponent: FC<{}> = ({}) => {
             setShowList(true);
             const timeoutId = setTimeout(() => {
                 fetchProducts();
-                console.log("inputValue plus que 2", inputValue);
             }, 300);
             return () => clearTimeout(timeoutId);
         }
@@ -72,7 +71,6 @@ const SearchBarComponent: FC<{}> = ({}) => {
         try {
             const response = await get(`/products/search?query=${inputValue}`);
             setAvailableProduct(response);
-            console.log("Recherche : ", response);
         } catch (e) {
             console.error("Erreur lors de la requête", e);
             setShowList(false);

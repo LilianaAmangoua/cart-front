@@ -14,6 +14,7 @@ const ProductDetails: FC<{}> = ({}) => {
     const {addToCart, sufficientStock} = useCart();
     const [quantity, setQuantity] = useState<number>(1);
 
+
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -27,7 +28,7 @@ const ProductDetails: FC<{}> = ({}) => {
     }, []);
 
     return (
-        <Pages title="Détails">
+        <Pages title={`Détails ${productToDisplay?.name}`}>
             <div className={styles.container}>
                 <div className={styles.image} style={{backgroundImage: `url(${productToDisplay?.image})`}}>
 
@@ -42,11 +43,9 @@ const ProductDetails: FC<{}> = ({}) => {
                     <input id="quantity" type="number" min="1" value={quantity}
                            onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}/>
 
-                    {
-                        sufficientStock && (
-                            <p style={{color: "red"}}>Le stock n'est pas suffisant</p>
-                        )
-                    }
+
+                    {sufficientStock && <p style={{color: "red"}}>{sufficientStock}</p>}
+
 
                     <Button variant="contained" onClick={() => {
                         if (productToDisplay) {

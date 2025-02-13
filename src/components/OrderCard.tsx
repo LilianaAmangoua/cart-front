@@ -6,6 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {OrderType} from "../types/OrderType";
+import {useEffect} from "react";
 
 export default function OrderCard({order}: { order: OrderType }) {
     return (
@@ -15,10 +16,10 @@ export default function OrderCard({order}: { order: OrderType }) {
                     {order.orderId}
                 </Typography>
                 <Typography variant="body2" sx={{color: 'text.secondary'}}>
-                    {order.total}
+                    {order.total} €
                 </Typography>
                 <Typography variant="body2" sx={{color: 'text.secondary'}}>
-                    {new Date(order.date).toLocaleDateString("fr-FR")}
+                    {new Date(order.order_date).toLocaleDateString("fr-FR")}
                 </Typography>
             </CardContent>
             <CardActions>
