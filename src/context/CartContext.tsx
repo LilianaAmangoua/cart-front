@@ -8,18 +8,18 @@ interface CartItem extends Product {
 
 interface CartProps {
     addToCart: (product: Product, stock: number, quantityToAdd: number) => void;
-    removeFromCart: (product: Product) => void;
+    removeFromCart: (product: Product, quantityRemove: number) => void;
     updateQuantity: (product: Product, quantity: number) => void;
     totalProducts: CartItem[];
     deleteAll: () => void;
-    sufficientStock: boolean;
+    sufficientStock: string;
 }
 
 export const CartContext = createContext<CartProps | undefined>(undefined);
 
 export const CartProvider: FC<{children: React.ReactNode}> = ({children}) => {
     const [totalProducts, setTotalProducts] = useState<CartItem[]>([]);
-    const [sufficientStock, setSufficientStock] = useState<boolean>(true);
+    const [sufficientStock, setSufficientStock] = useState<string>("");
 
     const updateQuantity = (product: Product, quantity: number) => {
         const updatedCart = totalProducts.map((item) =>
@@ -37,7 +37,7 @@ export const CartProvider: FC<{children: React.ReactNode}> = ({children}) => {
             if (stock > 0) { // Vérifie que le stock est suffisant
                 const updateStock = async () => {
                     try{
-                        const stock = await update(`/products/3/quantity?quantity=${quantityToAdd}`, {
+                        const stock = await update(`/products/${product.productId}/decrease?quantity=${quantityToAdd}`, {
                             quantity: quantityToAdd
                         })
                     } catch (e) {
@@ -49,21 +49,32 @@ export const CartProvider: FC<{children: React.ReactNode}> = ({children}) => {
                 updateStock();
             } else {
                 console.log("Stock insuffisant");
-                setSufficientStock(false);
+                setSufficientStock("Stock Insuffisant");
 
             }
         } else { // Si le produit est déjà present dans le panier
-            if (productInCart.quantity < stock) { // Vérifie que le stock est suffisant
-                updateQuantity(product, productInCart.quantity + quantityToAdd);
+            if (productInCart.quantity < stock) { // Vérifie que le stock est suffisant par rapport à la quantité
+                updateQuantity(productInCart, productInCart.quantity + quantityToAdd);
             } else {
                 console.log("Stock insuffisant pour augmenter la quantité");
-                setSufficientStock(false)
+                setSufficientStock("Stock Insuffisant")
             }
         }
     }
 
-    const removeFromCart = (product: Product) => {
-        const updatedCart = totalProducts.filter((item) => item.productId !== product.productId); // Renvoie un nouveau tableau sans le produit
+    const removeFromCart = (product: Product, quantityRemove: number) => {
+        const updateStock = async () => {
+            try {
+                const stock = await update(`/products/${product.productId}/increase?quantity=${quantityRemove}`, {
+                    quantity: quantityRemove
+                })
+            } catch (e) {
+                console.warn("Erreur lors de l'ajout au panier : ", e);
+            }
+        }
+
+        updateStock();
+        const updatedCart = totalProducts.filter((item) => item.productId !== product.productId);// Renvoie un nouveau tableau sans le produit
         setTotalProducts(updatedCart);
     }
 
@@ -82,7 +93,7 @@ export const CartProvider: FC<{children: React.ReactNode}> = ({children}) => {
 export const useCart = () => {
     const context = useContext(CartContext);
     if (!context) {
-        throw new Error("Cart not found");
+        throw new Error("Cart is undefined");
     }
     return context;
 }

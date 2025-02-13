@@ -81,6 +81,7 @@ function ResponsiveAppBar() {
 
     const handleLogout = () => {
         logout();
+        localStorage.removeItem("email");
         navigate("/login");
         handleCloseUserMenu();
     }

@@ -10,11 +10,6 @@ import {OrderType} from "../types/OrderType";
 export default function OrderCard({order}: { order: OrderType }) {
     return (
         <Card sx={{maxWidth: 345}}>
-            <CardMedia
-                sx={{height: 140}}
-                image="/static/images/cards/contemplative-reptile.jpg"
-                title="green iguana"
-            />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                     {order.orderId}

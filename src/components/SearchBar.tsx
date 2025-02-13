@@ -114,7 +114,7 @@ const SearchBarComponent: FC<{}> = ({}) => {
                         {
                             availableProduct.map((product) => {
                                 return (
-                                    <ListItemButton divider={true} sx={{
+                                    <ListItemButton divider={true} key={product.productId} sx={{
                                         display: "flex",
                                         justifyContent: "space-between",
                                         alignItems: "center"

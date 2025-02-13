@@ -43,7 +43,7 @@ const ProductDetails: FC<{}> = ({}) => {
                            onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}/>
 
                     {
-                        !sufficientStock && (
+                        sufficientStock && (
                             <p style={{color: "red"}}>Le stock n'est pas suffisant</p>
                         )
                     }

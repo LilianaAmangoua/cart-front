@@ -21,6 +21,7 @@ const LoginForm: FC<{}> = ({}) => {
     const [selectedRole, setSelectedRole] = useState("");
     const [error, setError] = useState("");
 
+
     const {register, handleSubmit, setValue, formState: {errors}} = useForm({
         defaultValues: {
             email: "",
@@ -30,6 +31,8 @@ const LoginForm: FC<{}> = ({}) => {
     })
 
     const postUser = async (data: LoginFormInput) => {
+        localStorage.setItem("email", data.email);
+
         try {
             const user = await post("/auth/login", {
                 email: data.email,
@@ -57,7 +60,7 @@ const LoginForm: FC<{}> = ({}) => {
         if (errors) {
             console.log("Errors while submitting : ", errors);
         }
-        // console.log("Data to submit : ", data);
+
         await postUser(data);
     }
 

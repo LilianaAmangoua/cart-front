@@ -5,18 +5,21 @@ import ProductCard from "../../components/ProductCard";
 import {Product} from "../../types/Product";
 import Pages from "../../Layout/Page";
 import Button from "@mui/material/Button";
+import FormDialog from "../../components/FormDialog";
 
 interface CartItem extends Product {
     quantity: number;
 }
 
 const Cart: FC<{}> = ({}) => {
-    const {totalProducts} = useCart();
+    const {totalProducts, deleteAll} = useCart();
+
 
     return (
         <Pages title={"Panier"}>
             <div>
                 <h2>Mon Panier</h2>
+                <Button variant="outlined" onClick={deleteAll} sx={{mt: "4rem", mb: "4rem"}}>Tout supprimer</Button>
                 <Grid container spacing={2} sx={{mb: 2, mr: 2}}>
                     {
                         totalProducts.map((product: CartItem) => (
@@ -27,8 +30,7 @@ const Cart: FC<{}> = ({}) => {
                     }
                 </Grid>
             </div>
-
-            <Button variant="contained" sx={{mb: 5}}>Acheter</Button>
+            <FormDialog/>
         </Pages>
 
     );
