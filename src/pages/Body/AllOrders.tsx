@@ -34,18 +34,20 @@ const AllOrders: FC<{}> = ({}) => {
 
     return (
         <Pages title={"Toutes les commandes"}>
-            <div style={{height: 80, width: "100%", backgroundColor: "blue", display: "flex", justifyContent: "flex-end", alignItems: "center"}}>
-                <LogoutIcon sx={{mr: 6, cursor: "pointer"}} onClick={logout}></LogoutIcon>
+            <div style={{height: 80, width: "100%", backgroundColor: "#006164", display: "flex", justifyContent: "flex-end", alignItems: "center"}}>
+                <LogoutIcon sx={{mr: 6, cursor: "pointer", color: "white"}} onClick={logout}></LogoutIcon>
             </div>
-            <h1>Toutes les commandes</h1>
+            <h2 style={{fontSize: "2.5rem", color: "#006164"}}>Toutes les commandes</h2>
+            <div className={"orders"}>
                 {
                     userEmails &&
                     userEmails.map((order: UserOrders) => (
-                        <Grid size={{xs: 12, md: 3}} key={order.orderId}>
-                            <AdminOrderCard order={order.orderId} email={order.email} date={order.order_date} total={order.total}/>
-                        </Grid>
+                        <AdminOrderCard order={order.orderId} email={order.email} date={order.order_date}
+                                        total={order.total} key={order.orderId}/>
                     ))
                 }
+            </div>
+
 
         </Pages>
     );

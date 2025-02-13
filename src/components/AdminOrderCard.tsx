@@ -1,7 +1,7 @@
 import {FC, useEffect} from 'react';
 import {OrderType} from "../types/OrderType";
 
-const AdminOrderCard: FC<{order: number, email: string, total: number, date: Date}> = ({order, email, total, date}) => {
+const AdminOrderCard: FC<{order: number, email: string, total: number, date: Date, key: number}> = ({order, email, total, date, key}) => {
 
     return (
         <>

@@ -25,13 +25,13 @@ const AllProducts: FC<{}> = ({}) => {
         <Pages title="Tous les produits">
             <div style={{minHeight: "90vh"}}>
 
-                <h2>Tous les produits</h2>
+                <h2 style={{fontSize: "2.5rem", color: "#006164"}}>Tous les produits</h2>
 
-                <Grid container spacing={2} sx={{mb: 2, mr: 2}}>
+                <Grid container spacing={5} sx={{mb: 2, mr: 2}}>
                     {
                         productsToDisplay &&
                         productsToDisplay.map((product: Product) => (
-                            <Grid size={{xs: 12, md: 3}} key={product.productId}>
+                            <Grid size={{xs: 12,sm: 6, md: 4, lg: 3}} key={product.productId}>
                                 <ProductCard product={product}/>
                             </Grid>
                         ))

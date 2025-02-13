@@ -7,6 +7,7 @@ import Pages from "../Layout/Page";
 import Box from "@mui/material/Box";
 import {Checkbox, FormControlLabel, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
+import {GreenButton} from "./common/GreenButton";
 
 interface SubscribeFormInput {
     email: string
@@ -66,7 +67,7 @@ const SubscribeForm: FC<{}> = ({}) => {
     return (
         <Pages title={"Se connecter"}>
             <form className="loginContainer" onSubmit={handleSubmit(onSubmit)}>
-                <h2 style={{color: "#274c77"}}>S'inscrire</h2>
+                <h2 style={{color: "#006164"}}>S'inscrire</h2>
 
                 <TextField id="outlined-basic" label="Email" variant="outlined" {...register("email")}/>
                 <TextField id="outlined-basic" label="Mot de passe" variant="outlined"
@@ -88,7 +89,7 @@ const SubscribeForm: FC<{}> = ({}) => {
                     label="Admin"
                 />
                 {error && (<p style={{color: "red"}}>{error}</p>)}
-                <Button type="submit" variant="contained">S'inscrire</Button>
+                <GreenButton type="submit" variant="contained">S'inscrire</GreenButton>
             </form>
         </Pages>
     );

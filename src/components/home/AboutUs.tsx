@@ -7,25 +7,11 @@ import image4 from "../../assets/engin-akyurt-rNBSooxNze4-unsplash (1).jpg"
 import styles from "../styles/AboutUs.module.css"
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
+import {GreenButton} from "../common/GreenButton";
+import ImageGrid from "./ImageGrid";
 
 const AboutUs: FC<{}> = ({}) => {
-    const images = [
-        {
-            title:"Ingrédients Naturels",
-            description: " Nous utilisons exclusivement des ingrédients de qualité, 100% naturels et issus de la région méditerranéenne.",
-            image: image1
-        },
-        {
-            title: "Fabrication Artisanale",
-            description: "Nos savons sont fabriqués à la main, avec un savoir-faire traditionnel.",
-            image: image2
-        },
-        {
-            title: "Respect de l’environnement",
-            description: "Nous privilégions des pratiques respectueuses de l’environnement et des emballages éco-responsables.",
-            image: image3
-        }
-    ]
+
 
     const navigate = useNavigate();
 
@@ -56,20 +42,11 @@ const AboutUs: FC<{}> = ({}) => {
             </section>
 
 
-            <Grid container spacing={5} sx={{ml: 6, mr: 6, mt: 20}}>
-                {
-                    images.map((image) => (
-                        <Grid size={{xs: 12, md: 4}} key={image.title}>
-                            <img src={image.image} alt={image.title} className={styles.image}/>
-                            <h3>{image.title}</h3>
-                            <p>{image.description}</p>
-                        </Grid>
-                    ))
-                }
-            </Grid>
+
+            <ImageGrid/>
 
             <div className={styles.ctaButton}>
-                <Button onClick={() => navigate("/allproducts")} variant="contained">Nos produits</Button>
+                <GreenButton onClick={() => navigate("/allproducts")} variant="contained">Nos produits</GreenButton>
             </div>
 
         </>

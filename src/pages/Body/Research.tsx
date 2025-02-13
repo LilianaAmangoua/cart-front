@@ -7,7 +7,7 @@ const Research: FC<{}> = ({}) => {
     return (
         <Pages title="Recherche">
             <div style={{height: "100vh"}}>
-                <h1>Chercher un produit</h1>
+                <h1 style={{fontSize: "2.5rem", color: "#006164"}}>Chercher un produit</h1>
                 <SearchBarComponent/>
             </div>
         </Pages>

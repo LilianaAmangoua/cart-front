@@ -9,12 +9,14 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import {CartContext, useCart} from "../context/CartContext";
 import {useOrder} from "../context/OrderContext";
+import {GreenButton} from "./common/GreenButton";
 
 const FormDialog: FC<{}> = ({}) => {
     const [open, setOpen] = React.useState(false);
 
     const [inputValue, setInputValue] = useState("");
     const [showError, setShowError] = useState(false);
+    const [emptyCart, setEmptyCart] = useState(false);
 
     const {totalProducts} = useCart();
     const {addToOrder} = useOrder();
@@ -32,6 +34,10 @@ const FormDialog: FC<{}> = ({}) => {
 
     const handleEmailVerification = () => {
         if(inputValue === email){ // Si le mail est valide, valider la commande
+            if(totalProducts.length <= 0){
+                setEmptyCart(true);
+                return;
+            }
             addToOrder(totalProducts);
             setShowError(false);
         }
@@ -45,11 +51,17 @@ const FormDialog: FC<{}> = ({}) => {
     return (
         <>
 
-            <Button onClick={handleClickOpen} variant="contained">Acheter</Button>
+            <GreenButton onClick={handleClickOpen} variant="contained" sx={{mb: "4rem"}}>Acheter</GreenButton>
 
             {
                 showError && (
                     <p style={{color: "red"}}>Le mail n'est pas valide</p>
+                )
+            }
+
+            {
+                emptyCart && (
+                    <p>Le panier est vide</p>
                 )
             }
 

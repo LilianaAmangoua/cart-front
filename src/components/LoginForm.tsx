@@ -8,6 +8,7 @@ import {useAuth} from "../context/AuthContext";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {post} from "../api/api";
 import Box from "@mui/material/Box";
+import {GreenButton} from "./common/GreenButton";
 
 interface LoginFormInput {
     email: string
@@ -68,7 +69,7 @@ const LoginForm: FC<{}> = ({}) => {
         <Pages title={"Se connecter"}>
 
             <form className="loginContainer" onSubmit={handleSubmit(onSubmit)}>
-                <h2 style={{color: "#274c77"}}>Se connecter</h2>
+                <h2 style={{color: "#006164"}}>Se connecter</h2>
 
                 <TextField id="outlined-basic" label="Email" variant="outlined" {...register("email")}/>
                 <TextField id="outlined-basic" label="Mot de passe" variant="outlined"
@@ -90,7 +91,7 @@ const LoginForm: FC<{}> = ({}) => {
                     label="Admin"
                 />
                 {error && (<p style={{color: "red"}}>{error}</p>)}
-                <Button type="submit" variant="contained">Se connecter</Button>
+                <GreenButton type="submit" variant="contained">Se connecter</GreenButton>
                 <p>Pas encore inscrit ? <span onClick={() => navigate("/subscribe")} style={{
                     cursor: "pointer",
                     textDecoration: "underline"

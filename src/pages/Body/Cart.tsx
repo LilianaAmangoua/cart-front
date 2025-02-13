@@ -16,7 +16,7 @@ const Cart: FC<{}> = ({}) => {
 
     return (
         <Pages title={"Panier"}>
-            <div>
+            <div style={{minHeight: "100vh"}}>
                 <h2>Mon Panier</h2>
                 <Button variant="outlined" onClick={deleteAll} sx={{mt: "4rem", mb: "4rem"}}>Tout supprimer</Button>
                 <Grid container spacing={2} sx={{mb: 2, mr: 2}}>

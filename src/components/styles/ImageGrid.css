@@ -1,0 +1,50 @@
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 90%;
+    margin: auto;
+}
+
+.grid-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.grid-row.reverse {
+    flex-direction: row-reverse;
+}
+
+.grid-image {
+    width: 40%;
+    height: 40%;
+    object-fit: cover;
+}
+
+.grid-text {
+    flex: 1;
+}
+
+.grid-text h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #006164;
+}
+
+.grid-text p {
+    margin: 5px 0 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+@media (max-width: 600px) {
+    .grid-row {
+        flex-direction: column !important;
+        text-align: center;
+    }
+
+    .grid-image {
+        width: 85%;
+    }
+}

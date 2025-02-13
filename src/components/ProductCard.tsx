@@ -5,12 +5,14 @@ import * as React from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import styles from "./styles/ProductCard.module.css";
 import DeleteIcon from '@mui/icons-material/Delete';
+import {GreenButton} from "./common/GreenButton";
 
 const ProductCard: FC<{product: Product, quantity?: number}> = ({product, quantity}) => {
      const navigate = useNavigate();
      const {addToCart, removeFromCart} = useCart();
      const [currentQuantity, setCurrentQuantity] = useState<number>(quantity || 1);
      const [showDelete, setShowDelete] = useState<boolean>(false);
+     const [showCart, setShowCart] = useState(false);
      let location = useLocation();
 
      const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,6 +25,7 @@ const ProductCard: FC<{product: Product, quantity?: number}> = ({product, quanti
 
     useEffect(() => {
         setShowDelete(location.pathname === ('/cart'));
+        setShowCart(location.pathname !== ('/cart'))
     }, [location.pathname]);
 
     return (
@@ -38,6 +41,13 @@ const ProductCard: FC<{product: Product, quantity?: number}> = ({product, quanti
             {showDelete && (
                 <DeleteIcon onClick={() => removeFromCart(product, currentQuantity) }></DeleteIcon>
             )}
+
+            {
+                showCart && (
+                    <GreenButton onClick={() => addToCart(product, product.stock, currentQuantity)}>Ajouter au
+                        panier</GreenButton>
+                )
+            }
 
 
         </section>

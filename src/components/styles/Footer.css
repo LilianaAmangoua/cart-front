@@ -1,9 +1,23 @@
 .footer {
+    background: #006164 !important;
+}
+
+.links {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    background: #1b61d4 !important;
-    height: 4.5rem;
+    height: 10vh;
+    gap: 15px;
+    padding: 5px;
+    width: 100%;
+}
+
+.band {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #015659 !important;
+    height: 40px;
 }
 
 .footer a {
@@ -12,10 +26,11 @@
     color: white;
 }
 
-@media screen and (max-width: 800px) {
-    .footer {
+@media screen and (max-width: 600px) {
+    .links {
         flex-direction: column;
-        align-items: center;
         height: 25vh;
+        gap: 25px;
     }
+
 }

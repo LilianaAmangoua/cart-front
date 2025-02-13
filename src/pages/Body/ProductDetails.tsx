@@ -35,7 +35,7 @@ const ProductDetails: FC<{}> = ({}) => {
                 </div>
 
                 <div className={styles.container__text}>
-                    <h1>{productToDisplay?.name}</h1>
+                    <h2 style={{fontSize: "2.5rem", color: "#006164"}}>{productToDisplay?.name}</h2>
                     <p>{productToDisplay?.description}</p>
 
                     <p>{productToDisplay?.price} €</p>

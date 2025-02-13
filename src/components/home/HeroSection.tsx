@@ -2,6 +2,7 @@ import {FC} from 'react';
 import styles from "../styles/HeroSection.module.css"
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
+import {GreenButton} from "../common/GreenButton";
 
 const HeroSection: FC<{}> = ({}) => {
     const navigate = useNavigate()
@@ -9,7 +10,7 @@ const HeroSection: FC<{}> = ({}) => {
         <section className={styles.heroSection} >
             <div className={styles.herosection__text}>
                 <h1>Savons artisanaux inspirés par la beauté de la Méditerranée</h1>
-                <Button variant="contained" onClick={() => navigate("/allproducts")}>Découvrez nos produits</Button>
+                <GreenButton variant="contained" onClick={() => navigate("/allproducts")}>Découvrez nos produits</GreenButton>
             </div>
 
         </section>

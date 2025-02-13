@@ -41,7 +41,7 @@ const Orders: FC<{}> = ({}) => {
     return (
         <Pages title={"Commandes"}>
             <div>
-                <h2>Mes commandes</h2>
+                <h2 style={{fontSize: "2.5rem", color: "#006164"}}>Mes commandes</h2>
 
                 <Grid container spacing={2} sx={{mb: 2, mr: 2}}>
                     {

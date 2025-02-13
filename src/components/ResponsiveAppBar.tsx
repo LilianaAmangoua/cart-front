@@ -14,6 +14,7 @@ import {Avatar, Badge, BadgeProps, styled, Tooltip} from "@mui/material";
 import {useAuth} from "../context/AuthContext";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {useCart} from "../context/CartContext";
+import image1 from "../assets/ciel--mer-high-resolution-logo.png"
 
 const pages = [
     {
@@ -89,10 +90,16 @@ function ResponsiveAppBar() {
 
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" sx={{
+            backgroundColor: "#006164"
+        }}>
+
+
             <Container maxWidth="xl">
+
                 <Toolbar disableGutters>
                     <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
+
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -120,7 +127,8 @@ function ResponsiveAppBar() {
                             sx={{display: {xs: 'block', md: 'none'}}}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page.name} onClick={() => navigate(page.navigation)} sx={{cursor: "pointer"}}>
+                                <MenuItem key={page.name} onClick={() => navigate(page.navigation)}
+                                          sx={{cursor: "pointer"}}>
                                     <Typography sx={{textAlign: 'center'}}>{page.name}</Typography>
                                 </MenuItem>
                             ))}
@@ -142,7 +150,7 @@ function ResponsiveAppBar() {
 
                         <IconButton aria-label="cart" onClick={() => navigate("/cart")}>
                             <StyledBadge badgeContent={totalProducts.length} color="secondary">
-                                <ShoppingCartIcon  sx={{cursor: "pointer", color: "white"}}/>
+                                <ShoppingCartIcon sx={{cursor: "pointer", color: "white"}}/>
                             </StyledBadge>
                         </IconButton>
 
