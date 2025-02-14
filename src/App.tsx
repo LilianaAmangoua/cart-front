@@ -1,22 +1,22 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
-import Research from "./pages/Body/Research";
-import AllProducts from "./pages/Body/AllProducts";
-import Cart from "./pages/Body/Cart";
-import Error from "./pages/Body/Error";
-import Login from "./pages/Body/Login";
-import Orders from "./pages/Body/Orders";
-import ProductDetails from "./pages/Body/ProductDetails";
-import LayoutWithBar from "./Layout/LayoutWithBar";
-import LayoutWithoutBar from "./Layout/LayoutWithoutBar";
+import Research from "./pages/body/Research";
+import AllProducts from "./pages/body/AllProducts";
+import Cart from "./pages/body/Cart";
+import Error from "./pages/body/Error";
+import Login from "./pages/body/Login";
+import Orders from "./pages/body/Orders";
+import ProductDetails from "./pages/body/ProductDetails";
+import LayoutWithBar from "./layout/LayoutWithBar";
+import LayoutWithoutBar from "./layout/LayoutWithoutBar";
 import {HelmetProvider} from "react-helmet-async";
 import {AuthProvider, useAuth} from "./context/AuthContext";
-import HomePage from "./pages/Body/Home";
+import HomePage from "./pages/body/Home";
 import {CartProvider} from "./context/CartContext";
-import Register from "./pages/Body/Register";
+import Register from "./pages/body/Register";
 import {PrivateAdminRoutes, PrivateUserRoutes} from "./routes/ProtectedRoutes";
-import AllOrders from "./pages/Body/AllOrders";
+import AllOrders from "./pages/body/AllOrders";
 import {OrderProvider} from "./context/OrderContext";
 
 

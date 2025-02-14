@@ -1,9 +1,9 @@
 .grid-container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 50px;
     max-width: 90%;
-    margin: auto;
+    margin: 8rem auto;
 }
 
 .grid-row {
@@ -17,7 +17,7 @@
 }
 
 .grid-image {
-    width: 40%;
+    width: 60%;
     height: 40%;
     object-fit: cover;
 }
@@ -45,6 +45,6 @@
     }
 
     .grid-image {
-        width: 85%;
+        width: 95%;
     }
 }

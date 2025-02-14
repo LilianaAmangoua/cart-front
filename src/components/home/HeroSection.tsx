@@ -2,7 +2,7 @@ import {FC} from 'react';
 import styles from "../styles/HeroSection.module.css"
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
-import {GreenButton} from "../common/GreenButton";
+import {GreenButton} from "../common/buttons/GreenButton";
 
 const HeroSection: FC<{}> = ({}) => {
     const navigate = useNavigate()

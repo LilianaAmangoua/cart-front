@@ -7,7 +7,7 @@ import image4 from "../../assets/engin-akyurt-rNBSooxNze4-unsplash (1).jpg"
 import styles from "../styles/AboutUs.module.css"
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
-import {GreenButton} from "../common/GreenButton";
+import {GreenButton} from "../common/buttons/GreenButton";
 import ImageGrid from "./ImageGrid";
 
 const AboutUs: FC<{}> = ({}) => {

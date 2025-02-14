@@ -14,7 +14,6 @@ import {Avatar, Badge, BadgeProps, styled, Tooltip} from "@mui/material";
 import {useAuth} from "../context/AuthContext";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {useCart} from "../context/CartContext";
-import image1 from "../assets/ciel--mer-high-resolution-logo.png"
 
 const pages = [
     {
@@ -82,7 +81,6 @@ function ResponsiveAppBar() {
 
     const handleLogout = () => {
         logout();
-        localStorage.removeItem("email");
         navigate("/login");
         handleCloseUserMenu();
     }
@@ -93,8 +91,6 @@ function ResponsiveAppBar() {
         <AppBar position="static" sx={{
             backgroundColor: "#006164"
         }}>
-
-
             <Container maxWidth="xl">
 
                 <Toolbar disableGutters>
@@ -149,7 +145,7 @@ function ResponsiveAppBar() {
                     <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center", width: 100}}>
 
                         <IconButton aria-label="cart" onClick={() => navigate("/cart")}>
-                            <StyledBadge badgeContent={totalProducts.length} color="secondary">
+                            <StyledBadge badgeContent={totalProducts.length} color="success" sx={{color: "white"}}>
                                 <ShoppingCartIcon sx={{cursor: "pointer", color: "white"}}/>
                             </StyledBadge>
                         </IconButton>

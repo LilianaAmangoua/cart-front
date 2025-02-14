@@ -21,6 +21,7 @@ export const CartProvider: FC<{children: React.ReactNode}> = ({children}) => {
     const [totalProducts, setTotalProducts] = useState<CartItem[]>([]);
     const [sufficientStock, setSufficientStock] = useState<string | null>(null);
 
+    // Modifie la quantité
     const updateQuantity = (product: Product, quantity: number) => {
         const updatedCart = totalProducts.map((item) =>
             item.productId === product.productId
@@ -30,6 +31,7 @@ export const CartProvider: FC<{children: React.ReactNode}> = ({children}) => {
         setTotalProducts(updatedCart);
     }
 
+    // Ajoute le produit au panier
     const addToCart = (product: Product, stock: number, quantityToAdd: number) => {
         const productInCart = totalProducts.find((item) => item.productId === product.productId);
 
@@ -63,6 +65,7 @@ export const CartProvider: FC<{children: React.ReactNode}> = ({children}) => {
         }
     }
 
+    // Enlève le produit du panier
     const removeFromCart = (product: Product, quantityRemove: number) => {
         const updateStock = async () => {
             try {
@@ -80,6 +83,7 @@ export const CartProvider: FC<{children: React.ReactNode}> = ({children}) => {
     }
 
 
+    // Supprime tous les produits du panier
     const deleteAll = () => {
         setTotalProducts([]);
     }
@@ -91,6 +95,7 @@ export const CartProvider: FC<{children: React.ReactNode}> = ({children}) => {
     );
 };
 
+// Hook personnalisé
 export const useCart = () => {
     const context = useContext(CartContext);
     if (!context) {

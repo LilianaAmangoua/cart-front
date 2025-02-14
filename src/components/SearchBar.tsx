@@ -1,64 +1,29 @@
-import React, {FC, useEffect, useRef, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import Toolbar from "@mui/material/Toolbar";
-import {alpha, InputBase, List, ListItemButton, ListItemText, styled} from "@mui/material";
-import {fromEvent, tap, map, filter, debounceTime, switchMap} from "rxjs";
+import { List, ListItemButton, ListItemText} from "@mui/material";
 import {Product} from "../types/Product";
 import SearchIcon from '@mui/icons-material/Search';
 import {get} from "../api/api";
+import {useNavigate} from "react-router-dom";
+import {SearchStyle} from "./searchStyles/SearchStyle";
+import {SearchIconWrapper} from "./searchStyles/SearchIconWrapper";
+import {StyledInputBase} from "./searchStyles/StyledInputBase";
 
-const Search = styled('div')(({theme}) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: "#e7ecef",
-    '&:hover': {
-        backgroundColor: "#a3cef1",
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(1),
-        width: 'auto',
-    },
-}));
-
-const SearchIconWrapper = styled('div')(({theme}) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({theme}) => ({
-    color: 'inherit',
-    width: "100%",
-    '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create('width'),
-        [theme.breakpoints.up('sm')]: {
-            width: '12ch',
-            '&:focus': {
-                width: '20ch',
-            },
-        },
-    },
-}));
 
 const SearchBarComponent: FC<{}> = ({}) => {
     const [availableProduct, setAvailableProduct] = useState<Product[]>([]);
     const [inputValue, setInputValue] = useState<string>("");
     const [showList, setShowList] = useState<boolean>(false);
+    const navigate = useNavigate();
 
+    // Obtenir la valeur de l'input
     const handleInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-        event.preventDefault();
+        event.preventDefault(); // Ne pas recharger la page
         setInputValue(event.target.value);
     }
 
     useEffect(() => {
-        if (inputValue.length > 2) {
+        if (inputValue.length > 2) { // Attendre que l'utilisateur ait écrit 2 lettres au moins
             setShowList(true);
             const timeoutId = setTimeout(() => {
                 fetchProducts();
@@ -67,6 +32,7 @@ const SearchBarComponent: FC<{}> = ({}) => {
         }
     }, [inputValue]);
 
+    // Récupérer les produits qui contiennent l'input value
     const fetchProducts = async () => {
         try {
             const response = await get(`/products/search?query=${inputValue}`);
@@ -81,18 +47,17 @@ const SearchBarComponent: FC<{}> = ({}) => {
     return (
         <>
             <Toolbar>
-                <Search>
+                <SearchStyle>
                     <SearchIconWrapper>
-                        <SearchIcon sx={{color: "#6096ba"}}/>
+                        <SearchIcon sx={{color: "#006164", "&:hover": {color: "white"}}}/>
                     </SearchIconWrapper>
                     <StyledInputBase
-                        sx={{width: 400}}
                         placeholder="Rechercher…"
                         inputProps={{'aria-label': 'search'}}
                         value={inputValue}
                         onChange={handleInputValue}
                     />
-                </Search>
+                </SearchStyle>
             </Toolbar>
             {
                 (availableProduct.length > 0 && showList) && (
@@ -112,7 +77,7 @@ const SearchBarComponent: FC<{}> = ({}) => {
                         {
                             availableProduct.map((product) => {
                                 return (
-                                    <ListItemButton divider={true} key={product.productId} sx={{
+                                    <ListItemButton divider={true} onClick={() => navigate(`/productsdetails/${product.productId}`)} key={product.productId} sx={{
                                         display: "flex",
                                         justifyContent: "space-between",
                                         alignItems: "center"

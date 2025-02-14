@@ -25,6 +25,7 @@ export const OrderProvider: FC<{ children: React.ReactNode }> = ({children}) => 
     const {userId} = useAuth();
 
 
+    // Ajoute des produits à une commande
     const addToOrder = (products: CartItem[]) => {
         const postOrder = async () => {
             try {
@@ -77,6 +78,7 @@ export const OrderProvider: FC<{ children: React.ReactNode }> = ({children}) => 
 
 }
 
+// Hook personnalisé
 export const useOrder = () => {
     const context = useContext(OrderContext);
     if (!context) {

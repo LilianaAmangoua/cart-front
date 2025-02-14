@@ -1,6 +1,5 @@
 import React, {createContext, FC, useContext, useEffect, useState} from "react";
 import {jwtDecode} from "jwt-decode";
-import {useNavigate} from "react-router-dom";
 
 interface AuthContext {
     userId: string | null;
@@ -14,7 +13,6 @@ interface AuthContext {
 export const AuthContext = createContext<AuthContext | undefined>(undefined);
 
 export const AuthProvider: FC<{ children: React.ReactNode }> = ({children}) => {
-    const navigate = useNavigate();
     const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
     const [role, setRole] = useState<string | null>(localStorage.getItem("role"));
     const [userId, setUserId] = useState<string | null>(null);
@@ -42,9 +40,8 @@ export const AuthProvider: FC<{ children: React.ReactNode }> = ({children}) => {
 
     const decodeToken = () => {
         if(token){
-            try {
+            try { // Récupérer le userId du token
                 const decoded: any = jwtDecode(token);
-
                 setUserId(decoded.id);
             } catch (error) {
                 console.error("Error decoding token:", error);
