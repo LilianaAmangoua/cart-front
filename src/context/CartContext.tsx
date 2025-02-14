@@ -44,7 +44,7 @@ export const CartProvider: FC<{children: React.ReactNode}> = ({children}) => {
     }
 
     // Ajoute le produit au panier
-    const addToCart = (product: Product, stock: number, quantityToAdd: number) => {
+    const addToCart = (product: Product, stock: number, quantityToUpdate: number) => {
         const productInCart = totalProducts.find((item) => item.productId === product.productId);
 
         if (!productInCart) { // Vérifie que le produit ne soit pas déjà dans le panier
@@ -52,15 +52,15 @@ export const CartProvider: FC<{children: React.ReactNode}> = ({children}) => {
                 setSufficientStock("")
                 const updateStock = async () => {
                     try{
-                        const stock = await update(`/products/${product.productId}/decrease?quantity=${quantityToAdd}`, {
-                            quantity: quantityToAdd
+                        const stock = await update(`/products/${product.productId}/decrease?quantity=${quantityToUpdate}`, {
+                            quantity: quantityToUpdate
                         })
                     } catch (e) {
                         console.warn("Erreur lors de l'ajout au panier : ", e);
                     }
 
                 }
-                setTotalProducts([...totalProducts, {...product, quantity: quantityToAdd}]);
+                setTotalProducts([...totalProducts, {...product, quantity: quantityToUpdate}]);
                 updateStock();
             } else {
                 setSufficientStock(`Stock Insuffisant pour le ${product.name}`);
@@ -68,7 +68,7 @@ export const CartProvider: FC<{children: React.ReactNode}> = ({children}) => {
             }
         } else { // Si le produit est déjà present dans le panier
             if (productInCart.quantity < stock) { // Vérifie que le stock est suffisant par rapport à la quantité
-                updateQuantity(productInCart, productInCart.quantity + quantityToAdd);
+                updateQuantity(productInCart, productInCart.quantity + quantityToUpdate);
                 setSufficientStock("")
             } else {
                 console.log("Stock insuffisant pour augmenter la quantité");
