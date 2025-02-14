@@ -1,4 +1,4 @@
-import {createContext, FC, useContext, useState} from 'react';
+import {createContext, FC, useContext, useEffect, useState} from 'react';
 import {Product} from "../types/Product";
 import {update} from "../api/api";
 
@@ -18,8 +18,20 @@ interface CartProps {
 export const CartContext = createContext<CartProps | undefined>(undefined);
 
 export const CartProvider: FC<{children: React.ReactNode}> = ({children}) => {
-    const [totalProducts, setTotalProducts] = useState<CartItem[]>([]);
+    let initialCart = [];
+    const storedProducts = localStorage.getItem("cart")
+    if(storedProducts){
+        initialCart = JSON.parse(storedProducts);
+    }
+
+    const [totalProducts, setTotalProducts] = useState<CartItem[]>(initialCart);
     const [sufficientStock, setSufficientStock] = useState<string | null>(null);
+
+    // Garder le panier en local storage même quand les produits du panier changent
+    useEffect(() => {
+        localStorage.setItem("cart", JSON.stringify(totalProducts));
+    }, [totalProducts]);
+
 
     // Modifie la quantité
     const updateQuantity = (product: Product, quantity: number) => {

@@ -46,7 +46,7 @@ const ProductDetails: FC<{}> = ({}) => {
                            onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}/>
 
 
-                    {sufficientStock && <p style={{color: "red"}}>{sufficientStock}</p>}
+                    {(sufficientStock || productToDisplay?.stock === 0) && <p style={{color: "red"}}>{sufficientStock}</p>}
 
 
                     <GreenButton variant="contained" onClick={() => {
